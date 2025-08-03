@@ -1,28 +1,39 @@
+/*
+ * Copyright (c) 2022 The ZMK Contributors
+ *
+ * SPDX-License-Identifier: MIT
+ */
+
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/pointing.h>
 
+// Layer Defines
 #define DEF 0
 #define NAV 1
 #define SYM 2
 #define ADJ 3
 #define EXTRA 4
 
-//testing mouse movement and scroll binds...
+// Behavior Defines
+#define TAP_SPEED 200
+#define TD_SLSH   &td3    // SLASH QMARK
+#define TD_ATCAT  &td14   // AT CARET
+#define TD_MINUS  &td7    // MINUS UNDERSCORE
+#define TD_BSLS   &td6    // BACKSLASH PIPE
 
 / {
     behaviors {
+        // -- Behaviors from original Dvorak config --
         hm: homerow_mods {
             compatible = "zmk,behavior-hold-tap";
             label = "HOMEROW_MODS";
             #binding-cells = <2>;
             tapping-term-ms = <200>;
-            quick_tap_ms = <0>;
+            quick_tap_ms = <180>;
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
-
-            quick-tap-ms = <180>;
             global-quick-tap;
         };
 
@@ -43,201 +54,218 @@
         paraless: paraless {
             compatible = "zmk,behavior-mod-morph";
             label = "PARALESS";
-            bindings = <&kp LEFT_PARENTHESIS>, <&kp LESS_THAN>;
-
             #binding-cells = <0>;
+            bindings = <&kp LEFT_PARENTHESIS>, <&kp LESS_THAN>;
             mods = <(MOD_LSFT)>;
         };
 
         paragreat: paragreat {
             compatible = "zmk,behavior-mod-morph";
             label = "PARAGREAT";
-            bindings = <&kp RIGHT_PARENTHESIS>, <&kp GREATER_THAN>;
-
             #binding-cells = <0>;
+            bindings = <&kp RIGHT_PARENTHESIS>, <&kp GREATER_THAN>;
             mods = <(MOD_LSFT)>;
+        };
+
+        // -- Behaviors for NAV & SYM layers --
+        td3: tap_dance_3 {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_3";
+            #binding-cells = <0>;
+            tapping-term-ms = <TAP_SPEED>;
+            bindings = <&kp SLASH>, <&kp QMARK>;
+        };
+        td6: tap_dance_6 {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_6";
+            #binding-cells = <0>;
+            tapping-term-ms = <TAP_SPEED>;
+            bindings = <&kp BACKSLASH>, <&kp PIPE>;
+        };
+        td7: tap_dance_7 {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_7";
+            #binding-cells = <0>;
+            tapping-term-ms = <TAP_SPEED>;
+            bindings = <&kp MINUS>, <&kp UNDERSCORE>;
+        };
+        td14: tap_dance_14 {
+            compatible = "zmk,behavior-tap-dance";
+            label = "TAP_DANCE_14";
+            #binding-cells = <0>;
+            tapping-term-ms = <TAP_SPEED>;
+            bindings = <&kp AT>, <&kp CARET>;
+        };
+
+        mm_1_excl: mod_morph_1_excl {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MM_1_EXCL";
+            #binding-cells = <0>;
+            bindings = <&kp N1>, <&kp EXCL>;
+            mods = <(MOD_LSFT | MOD_RSFT)>;
+        };
+        mm_2_at: mod_morph_2_at {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MM_2_AT";
+            #binding-cells = <0>;
+            bindings = <&kp N2>, <&kp AT>;
+            mods = <(MOD_LSFT | MOD_RSFT)>;
+        };
+        mm_3_hash: mod_morph_3_hash {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MM_3_HASH";
+            #binding-cells = <0>;
+            bindings = <&kp N3>, <&kp HASH>;
+            mods = <(MOD_LSFT | MOD_RSFT)>;
+        };
+        mm_4_dllr: mod_morph_4_dllr {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MM_4_DLLR";
+            #binding-cells = <0>;
+            bindings = <&kp N4>, <&kp DLLR>;
+            mods = <(MOD_LSFT | MOD_RSFT)>;
+        };
+        mm_5_prcnt: mod_morph_5_prcnt {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MM_5_PRCNT";
+            #binding-cells = <0>;
+            bindings = <&kp N5>, <&kp PRCNT>;
+            mods = <(MOD_LSFT | MOD_RSFT)>;
+        };
+        mm_6_caret: mod_morph_6_caret {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MM_6_CARET";
+            #binding-cells = <0>;
+            bindings = <&kp N6>, <&kp CARET>;
+            mods = <(MOD_LSFT | MOD_RSFT)>;
+        };
+        mm_7_amps: mod_morph_7_amps {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MM_7_AMPS";
+            #binding-cells = <0>;
+            bindings = <&kp N7>, <&kp AMPS>;
+            mods = <(MOD_LSFT | MOD_RSFT)>;
+        };
+        mm_8_astr: mod_morph_8_astr {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MM_8_ASTR";
+            #binding-cells = <0>;
+            bindings = <&kp N8>, <&kp ASTRK>;
+            mods = <(MOD_LSFT | MOD_RSFT)>;
+        };
+        mm_9_lpar: mod_morph_9_lpar {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MM_9_LPAR";
+            #binding-cells = <0>;
+            bindings = <&kp N9>, <&kp LPAR>;
+            mods = <(MOD_LSFT | MOD_RSFT)>;
+        };
+        mm_0_rpar: mod_morph_0_rpar {
+            compatible = "zmk,behavior-mod-morph";
+            label = "MM_0_RPAR";
+            #binding-cells = <0>;
+            bindings = <&kp N0>, <&kp RPAR>;
+            mods = <(MOD_LSFT | MOD_RSFT)>;
         };
     };
 
     combos {
         compatible = "zmk,combos";
-
-        escape {
-            bindings = <&kp ESCAPE>;
-            key-positions = <13 29>;
-        };
-
-        delete {
-            bindings = <&kp DELETE>;
-            key-positions = <15 21>;
-        };
-
-        perc {
-            bindings = <&kp PERCENT>;
-            key-positions = <5 17>;
-        };
-
-        equal {
-            bindings = <&kp EQUAL>;
-            key-positions = <28 16>;
-        };
-
-        dollar {
-            bindings = <&kp DOLLAR>;
-            key-positions = <4 16>;
-        };
-
-        pound {
-            bindings = <&kp POUND>;
-            key-positions = <3 15>;
-        };
-
-        at {
-            bindings = <&kp AT>;
-            key-positions = <2 14>;
-        };
-
-        backslash {
-            bindings = <&kp BACKSLASH>;
-            key-positions = <26 14>;
-        };
-
-        copy {
-            bindings = <&kp K_COPY>;
-            key-positions = <28 27>;
-        };
-
-        paste {
-            bindings = <&kp K_PASTE>;
-            key-positions = <26 27>;
-        };
-
-        star {
-            bindings = <&kp STAR>;
-            key-positions = <8 20>;
-        };
-
-        slash {
-            bindings = <&kp SLASH>;
-            key-positions = <32 20>;
-        };
-
-        plus {
-            bindings = <&kp PLUS>;
-            key-positions = <7 19>;
-        };
-
-        minus {
-            bindings = <&kp KP_MINUS>;
-            key-positions = <31 19>;
-        };
-
-        underscore {
-            bindings = <&kp UNDER>;
-            key-positions = <30 18>;
-        };
-
-        leftbrack {
-            bindings = <&kp LEFT_BRACKET>;
-            key-positions = <31 32>;
-        };
-
-        rightbrack {
-            bindings = <&kp RIGHT_BRACKET>;
-            key-positions = <33 32>;
-        };
-
-        para-less {
-            bindings = <&paraless>;
-            key-positions = <20 19>;
-        };
-
-        para-great {
-            bindings = <&paragreat>;
-            key-positions = <20 21>;
-        };
+        escape { bindings = <&kp ESCAPE>; key-positions = <13 29>; };
+        delete { bindings = <&kp DELETE>; key-positions = <15 21>; };
+        perc { bindings = <&kp PERCENT>; key-positions = <5 17>; };
+        equal { bindings = <&kp EQUAL>; key-positions = <28 16>; };
+        dollar { bindings = <&kp DOLLAR>; key-positions = <4 16>; };
+        pound { bindings = <&kp POUND>; key-positions = <3 15>; };
+        at { bindings = <&kp AT>; key-positions = <2 14>; };
+        backslash { bindings = <&kp BACKSLASH>; key-positions = <26 14>; };
+        copy { bindings = <&kp K_COPY>; key-positions = <28 27>; };
+        paste { bindings = <&kp K_PASTE>; key-positions = <26 27>; };
+        star { bindings = <&kp STAR>; key-positions = <8 20>; };
+        slash { bindings = <&kp SLASH>; key-positions = <32 20>; };
+        plus { bindings = <&kp PLUS>; key-positions = <7 19>; };
+        minus { bindings = <&kp KP_MINUS>; key-positions = <31 19>; };
+        underscore { bindings = <&kp UNDER>; key-positions = <30 18>; };
+        leftbrack { bindings = <&kp LEFT_BRACKET>; key-positions = <31 32>; };
+        rightbrack { bindings = <&kp RIGHT_BRACKET>; key-positions = <33 32>; };
+        para-less { bindings = <&paraless>; key-positions = <20 19>; };
+        para-great { bindings = <&paragreat>; key-positions = <20 21>; };
     };
-
-    //
 
     keymap {
         compatible = "zmk,keymap";
 
         DEF {
-                display-name = "Base";
+            display-name = "Base - Dvorak";
             // -----------------------------------------------------------------------------------------
-            // |  Q  |  W  |  E  |  R  |  T  |   |  Y  |  U   |  I  |  O  |  P  |
-            // |  A  |  S  |  D  |  F  |  G  |   |  H  |  J   |  K  |  L  |  ;  |
-            // |  Z  |  X  |  C  |  V  |  B  |   |  N  |  M   |  ,  |  .  |  /  |
-            // | GUI | CTRL | SHFT | LWR | SPC |   | ENT | RSE  | BKSP | ALT | ESC |
-
+            // | TAB |  ;  |  ,  |  .  |  P  |  Y  |    |  F  |  G  |  C  |  R  |  L  | BKSP |
+            // | SFT |  A  |  O  |  E  |  U  |  I  |    |  D  |  H  |  T  |  N  |  S  |  '   |
+            // | CTL |  `  |  Q  |  J  |  K  |  X  |    |  B  |  M  |  W  |  V  |  Z  | SFT  |
+            // |     |     | GUI | NAV | SPC |    | RET | SYM | BSP |     |     |      |
             bindings = <
-&kp TAB    &kp Q       &kp W        &kp E       &kp R        &kp T        &kp Y    &kp U        &kp I          &kp O        &kp P          &kp BACKSPACE
-&kp LSHFT  &hm LGUI A  &hm LSHFT S  &hm LALT D  &hm LCTRL F  &kp G        &kp H    &hm RCTRL J  &hm RALT K     &hm RSHFT L  &hm RGUI SEMI  &kp SQT
-&kp LCTRL  &kp Z       &kp X        &kp C       &kp V        &kp B        &kp N    &kp M        &kp COMMA      &kp DOT      &kp FSLH       &kp RSHFT
-                                    &kp LGUI    &mo 1        &kp SPACE    &kp RET  &lt 2 TAB    &kp BACKSPACE
+&kp TAB    &kp SEMI       &kp COMMA      &kp DOT        &kp P          &kp Y        &kp F        &kp G        &kp C        &kp R        &kp L        &kp BACKSPACE
+&kp LSHFT  &hm LGUI A     &hm LSHFT O    &hm LALT E     &hm LCTRL U    &kp I        &kp D        &hm RCTRL H  &hm RALT T   &hm RSHFT N  &hm RGUI S   &kp SQT
+&kp LCTRL  &kp GRAVE      &kp Q          &kp J          &kp K          &kp X        &kp B        &kp M        &kp W        &kp V        &kp Z        &kp RSHFT
+                                         &kp LGUI       &mo NAV        &kp SPACE    &kp RET      &lt SYM TAB  &kp BSPC
             >;
         };
 
         NAV {
-                display-name = "Nav";
+            label = "NAV";
             // -----------------------------------------------------------------------------------------
-            // |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BKSP |
-            // | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |      |
-            // | SHFT |     |     |     |     |     |   |     |     |     |     |     |      |
-            // | GUI | CTRL | SHFT | LWR | SPC |   | ENT | RSE  | BKSP | ALT | ESC |
-
+            // |      |  1  |  2  |  3  |  4  |  5  |      |  6  |  7  |  8  |  9  |  0  |      |
+            // | F11  | F1  | F2  | F3  | F4  | F5  |      | LFT | DWN | UP  | RGT |     |      |
+            // |      | F6  | F7  | F8  | F9  | F10 |      |HOME | PGDN| PGUP| END |     |      |
+            // -----------------------------------------------------------------------------------------
             bindings = <
-&trans  &kp N1       &kp N2        &kp N3             &kp N4           &kp N5           &kp N6   &kp N7        &kp N8       &kp N9        &kp N0            &trans
-&trans  &hm LGUI N0  &hm LSHFT N4  &hm LALT UP_ARROW  &hm LCTRL DEL    &kp PAGE_UP      &kp N0   &hm RCTRL N4  &hm RALT N5  &hm RSHFT N6  &hm RGUI PAGE_UP  &trans
-&trans  &trans       &kp LEFT      &kp DOWN           &kp RIGHT_ARROW  &kp PAGE_DOWN    &trans   &kp N1        &kp N2       &kp N3        &kp PAGE_DOWN     &trans
-                                   &kp LGUI           &trans           &kp SPACE        &kp RET  &trans        &trans
+&trans      &mm_1_excl  &mm_2_at   &mm_3_hash &mm_4_dllr  &mm_5_prcnt         &mm_6_caret &mm_7_amps   &mm_8_astr  &mm_9_lpar  &mm_0_rpar &trans
+&kp F11     &kp F1      &kp F2     &kp F3     &kp F4      &kp F5              &kp LEFT    &kp DOWN     &kp UP      &kp RIGHT   &trans     &trans
+&trans      &kp F6      &kp F7     &kp F8     &kp F9      &kp F10             &kp HOME    &kp PG_DN    &kp PG_UP   &kp END     &trans     &trans
+                                             &trans      &trans  &trans      &trans      &trans       &trans
             >;
         };
 
         SYM {
-                display-name = "Sym";
+            label = "SYM";
             // -----------------------------------------------------------------------------------------
-            // |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BKSP |
-            // | CTRL |     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
-            // | SHFT |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
-            //                    | GUI |     | SPC |   | ENT |     | ALT |
-
+            // |      |  [  |  {  |  }  |  (  |  =  |      |  * |  )  |  +  |  ]  |  !  |      |
+            // | CTRL |  ~  |  %  |  `  | / ? | @ ^ |      |     |     |     |     |     |      |
+            // |      |  $  |  &  |  #  | - _ | \ | |      |     |     |     |     |     |      |
+            // -----------------------------------------------------------------------------------------
             bindings = <
-&trans  &kp EXCL  &kp AT          &kp HASH           &kp DLLR         &kp PRCNT    &kp CARET  &kp AMPS         &kp ASTRK      &kp LEFT_PARENTHESIS  &kp RPAR       &trans
-&trans  &trans    &trans          &hm LALT UP_ARROW  &hm LCTRL SQT    &kp GRAVE    &kp MINUS  &hm RCTRL EQUAL  &hm RALT LBKT  &hm RSHFT RBKT        &hm RGUI BSLH  &trans
-&trans  &trans    &kp LEFT_ARROW  &kp DOWN_ARROW     &kp RIGHT_ARROW  &kp TILDE    &kp UNDER  &kp PLUS         &kp LBRC       &kp RBRC              &kp PIPE       &trans
-                                  &kp LGUI           &trans           &kp SPACE    &kp RET    &trans           &trans
+&trans      &kp LBKT    &kp LBRC   &kp RBRC   &kp LPAR    &kp EQUAL           &kp STAR    &kp RPAR     &kp PLUS    &kp RBKT    &kp EXCL   &trans
+&kp LCTRL   &kp TILDE   &kp PRCNT  &kp GRAVE  TD_SLSH     TD_ATCAT            &trans      &trans       &trans      &trans      &trans     &trans
+&trans      &kp DLLR    &kp AMPS   &kp HASH   TD_MINUS    TD_BSLS             &trans      &trans       &trans      &trans      &trans     &trans
+                                             &trans      &trans  &trans      &trans      &trans       &trans
             >;
         };
 
         ADJ {
-                display-name = "System";
+            display-name = "System";
             bindings = <
-&trans  &kp F1        &kp F2         &kp F3        &kp F4      &kp F5            &kp F6  &kp F7  &kp F8  &kp F9  &kp F10      &trans
-&trans  &hm LGUI F11  &hm LSHFT F12  &trans        &trans      &studio_unlock            &trans  &trans  &trans  &trans  &trans       &trans
-&trans  &bt BT_SEL 0  &bt BT_SEL 1   &bt BT_SEL 2  &bt BT_CLR  &bt BT_CLR_ALL    &trans  &trans  &trans  &trans  &bootloader  &trans
-                                     &trans        &trans      &trans            &trans  &trans  &trans
+&trans  &kp F1        &kp F2         &kp F3        &kp F4      &kp F5          &kp F6  &kp F7  &kp F8  &kp F9  &kp F10      &trans
+&trans  &hm LGUI F11  &hm LSHFT F12  &trans        &trans      &bootloader     &trans  &trans  &trans  &trans  &trans       &trans
+&trans  &bt BT_SEL 0  &bt BT_SEL 1   &bt BT_SEL 2  &bt BT_CLR  &bt BT_CLR_ALL  &trans  &trans  &trans  &trans  &bootloader  &trans
+                                     &trans        &trans      &trans          &trans  &trans  &trans
             >;
         };
 
         EXTRA {
-                display-name = "System";
+            display-name = "Mouse";
             bindings = <
-&trans  &trans       &trans         &mmv MOVE_UP       &trans      &msc SCRL_UP    &trans  &trans  &trans  &trans  &trans      &trans
-&trans  &trans       &mmv MOVE_LEFT &mmv MOVE_DOWN     &mmv MOVE_RIGHT   &msc SCRL_DOWN            &trans  &trans  &trans  &trans  &trans       &trans
-&trans  &trans       &trans   &trans  &trans  &trans    &trans  &trans  &trans  &trans  &trans  &trans
-                                     &trans        &trans      &trans            &trans  &trans  &trans
+&trans  &trans  &trans           &mmv MOVE_UP     &trans            &msc SCRL_UP    &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &mmv MOVE_LEFT  &mmv MOVE_DOWN    &mmv MOVE_RIGHT    &msc SCRL_DOWN  &trans  &trans  &trans  &trans  &trans  &trans
+&trans  &trans  &trans           &trans           &trans            &trans          &trans  &trans  &trans  &trans  &trans  &trans
+                                 &trans           &trans            &trans          &trans  &trans  &trans
             >;
         };
     };
 
     conditional_layers {
         compatible = "zmk,conditional-layers";
-
         l3 {
-            if-layers = <1 2>;
-            then-layer = <3>;
+            if-layers = <NAV SYM>; // Activates ADJ when NAV and SYM are active
+            then-layer = <ADJ>;
         };
     };
 };
