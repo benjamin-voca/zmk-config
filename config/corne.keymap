@@ -25,7 +25,7 @@
 
 / {
     behaviors {
-        // -- Behaviors from original Dvorak config --
+        // -- Shared behaviors --
         hm: homerow_mods {
             compatible = "zmk,behavior-hold-tap";
             label = "HOMEROW_MODS";
@@ -197,16 +197,16 @@
         compatible = "zmk,keymap";
 
         DEF {
-            display-name = "Base - Dvorak";
+            display-name = "Base - QWERTY";
             // -----------------------------------------------------------------------------------------
-            // | TAB |  ;  |  ,  |  .  |  P  |  Y  |    |  F  |  G  |  C  |  R  |  L  | BKSP |
-            // | SFT |  A  |  O  |  E  |  U  |  I  |    |  D  |  H  |  T  |  N  |  S  |  '   |
-            // | CTL |  `  |  Q  |  J  |  K  |  X  |    |  B  |  M  |  W  |  V  |  Z  | SFT  |
-            // |     |     | GUI | NAV | SPC |    | RET | SYM | BSP |     |     |      |
+            // | TAB |  Q  |  W  |  E  |  R  |  T  |    |  Y  |  U  |  I  |  O  |  P  | BKSP |
+            // | SFT |  A  |  S  |  D  |  F  |  G  |    |  H  |  J  |  K  |  L  |  ;  |  '   |
+            // | CTL |  Z  |  X  |  C  |  V  |  B  |    |  N  |  M  |  ,  |  .  |  /  | SFT  |
+            // |     |     |     | NAV | SPC |    | RET | SYM | BSP |     |     |      |
             bindings = <
-&kp TAB    &kp SEMI       &kp COMMA      &kp DOT        &kp P          &kp Y        &kp F        &kp G        &kp C        &kp R        &kp L        &kp BACKSPACE
-&kp LSHFT  &hm LGUI A     &hm LSHFT O    &hm LALT E     &hm LCTRL U    &kp I        &kp D        &hm RCTRL H  &hm RALT T   &hm RSHFT N  &hm RGUI S   &kp SQT
-&kp LCTRL  &kp GRAVE      &kp Q          &kp J          &kp K          &kp X        &kp B        &kp M        &kp W        &kp V        &kp Z        &kp RSHFT
+&kp TAB    &kp Q          &kp W          &kp E          &kp R          &kp T        &kp Y        &kp U        &kp I        &kp O        &kp P        &kp BACKSPACE
+&kp LSHFT  &hm LGUI A     &hm LSHFT S    &hm LALT D     &hm LCTRL F    &kp G        &kp H        &hm RCTRL J  &hm RALT K   &hm RSHFT L  &hm RGUI SEMI &kp SQT
+&kp LCTRL  &kp Z          &kp X          &kp C          &kp V          &kp B        &kp N        &kp M        &kp COMMA    &kp DOT      &kp FSLH     &kp RSHFT
                                          &kp ESCAPE     &mo NAV        &kp SPACE    &kp RET      &lt SYM TAB    &kp BSPC
             >;
         };
